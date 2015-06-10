@@ -6,7 +6,7 @@ export default class AutoLinkText extends React.Component {
   render() {
     const {text} = this.props;
     if (!text) {
-      return null;
+      return <span />;
     }
 
     const matches = matchParser(text);
