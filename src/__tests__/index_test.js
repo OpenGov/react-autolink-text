@@ -29,6 +29,12 @@ describe('<AutoLinkText />', function() {
       ).toEqual('<span><span>Joe went to </span><a href="http://opengov.com">opengov.com</a></span>');
     });
 
+    it('should automatically link URLs in the form of https://opengov.com', function() {
+      expect(
+        renderText('Joe went to https://opengov.com')
+      ).toEqual('<span><span>Joe went to </span><a href="https://opengov.com">opengov.com</a></span>');
+    });
+
     it('should automatically link localhost URLs when there is a protocol', function() {
       expect(
         renderText('Joe visited http://localhost today')

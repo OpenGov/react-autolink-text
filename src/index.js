@@ -22,7 +22,7 @@ function prepareElements(text) {
     if (match.position.start !== 0) {
       elements.push(<span>{text.slice(lastIndex, match.position.start)}</span>);
     }
-    elements.push(<a href={match.text}>{match.text.replace(/(http:)?\/\//, '').replace('www.', '')}</a>);
+    elements.push(<a href={match.getAnchorHref()}>{match.getAnchorText()}</a>);
     lastIndex = match.position.end;
   });
 

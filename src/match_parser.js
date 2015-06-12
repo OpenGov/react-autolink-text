@@ -1,4 +1,5 @@
 import {isValidMatch} from './match_validator';
+import URLMatch from './url_match';
 
 // match protocol, allow in format "http://" or "mailto:". However, do not match
 // the first part of something like 'link:http://www.google.com' (i.e. don't match "link:").
@@ -72,10 +73,8 @@ export default function(text='') {
     }
 
     if (isValidMatch(matchedText, protocolUrlMatch, protocolRelativeMatch)) {
-      matches.push({
-        text: matchedText,
-        position: {start: match.index, end: regex.lastIndex}
-      });
+      let position = {start: match.index, end: regex.lastIndex};
+      matches.push(new URLMatch(matchedText, protocolUrlMatch, protocolRelativeMatch, position));
     }
   }
 
