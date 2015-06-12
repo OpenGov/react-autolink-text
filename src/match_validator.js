@@ -33,16 +33,16 @@ const invalidProtocolRelMatchRegex = /^[\w]\/\//;
  *   processed.
  */
 export function isValidMatch(urlMatch, protocolUrlMatch, protocolRelativeMatch) {
-	if(
-		(protocolUrlMatch && !isValidUriScheme(protocolUrlMatch)) ||
+  if(
+    (protocolUrlMatch && !isValidUriScheme(protocolUrlMatch)) ||
     urlMatchDoesNotHaveProtocolOrDot(urlMatch, protocolUrlMatch) || // At least one period ('.') must exist in the URL match for us to consider it an actual URL, *unless* it was a full protocol match (like 'http://localhost')
     urlMatchDoesNotHaveAtLeastOneWordChar(urlMatch, protocolUrlMatch) || // At least one letter character must exist in the domain name after a protocol match. Ex: skip over something like "git:1.0"
     isInvalidProtocolRelativeMatch(protocolRelativeMatch) // A protocol-relative match which has a word character in front of it (so we can skip something like "abc//google.com")
-	) {
-		return false;
-	}
+  ) {
+    return false;
+  }
 
-	return true;
+  return true;
 }
 
 /**
@@ -55,9 +55,9 @@ export function isValidMatch(urlMatch, protocolUrlMatch, protocolRelativeMatch) 
  * @return {Boolean} `true` if the scheme is a valid one, `false` otherwise.
  */
 function isValidUriScheme(uriSchemeMatch) {
-	var uriScheme = uriSchemeMatch.match(uriSchemeRegex)[0].toLowerCase();
+  var uriScheme = uriSchemeMatch.match(uriSchemeRegex)[0].toLowerCase();
 
-	return (uriScheme !== 'javascript:' && uriScheme !== 'vbscript:');
+  return (uriScheme !== 'javascript:' && uriScheme !== 'vbscript:');
 }
 
 /**
@@ -82,7 +82,7 @@ function isValidUriScheme(uriSchemeMatch) {
  *   or at least one dot ('.') in a non-full-protocol match.
  */
 function urlMatchDoesNotHaveProtocolOrDot(urlMatch, protocolUrlMatch) {
-	return (!!urlMatch && (!protocolUrlMatch || !hasFullProtocolRegex.test(protocolUrlMatch) ) && urlMatch.indexOf('.') === -1);
+  return (!!urlMatch && (!protocolUrlMatch || !hasFullProtocolRegex.test(protocolUrlMatch) ) && urlMatch.indexOf('.') === -1);
 }
 
 /**
@@ -103,11 +103,11 @@ function urlMatchDoesNotHaveProtocolOrDot(urlMatch, protocolUrlMatch) {
  *   character in it after the protocol, `false` otherwise.
  */
 function urlMatchDoesNotHaveAtLeastOneWordChar(urlMatch, protocolUrlMatch) {
-	if(urlMatch && protocolUrlMatch) {
-		return !hasWordCharAfterProtocolRegex.test(urlMatch);
-	} else {
-		return false;
-	}
+  if(urlMatch && protocolUrlMatch) {
+    return !hasWordCharAfterProtocolRegex.test(urlMatch);
+  } else {
+    return false;
+  }
 }
 
 /**
@@ -125,5 +125,5 @@ function urlMatchDoesNotHaveAtLeastOneWordChar(urlMatch, protocolUrlMatch) {
  *   `false` otherwise.
  */
 function isInvalidProtocolRelativeMatch(protocolRelativeMatch) {
-	return (!!protocolRelativeMatch && invalidProtocolRelMatchRegex.test(protocolRelativeMatch));
+  return (!!protocolRelativeMatch && invalidProtocolRelMatchRegex.test(protocolRelativeMatch));
 }

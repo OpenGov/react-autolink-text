@@ -53,35 +53,35 @@ describe('<AutoLinkText />', function() {
       ).toBe('<span><span>do not link javascript:window.alert(&quot;hi&quot;) please</span></span>');
     });
 
-		it('should NOT automatically link strings of the form "git:d" (using the heuristic that the domain name does not have a "." in it)', function() {
+    it('should NOT automatically link strings of the form "git:d" (using the heuristic that the domain name does not have a "." in it)', function() {
       expect(
         renderText('Something like git:d should not be linked as a URL')
       ).toBe('<span><span>Something like git:d should not be linked as a URL</span></span>');
-		});
+    });
 
-		it('should NOT automatically link strings of the form ":git:domain" (using the heuristic that the domain name does not have a "." in it)', function() {
+    it('should NOT automatically link strings of the form ":git:domain" (using the heuristic that the domain name does not have a "." in it)', function() {
       expect(
         renderText('Something like git:domain should not be linked as a URL')
       ).toBe('<span><span>Something like git:domain should not be linked as a URL</span></span>');
-		});
+    });
 
-		it('should automatically link strings of the form "git:domain.com", interpreting this as a protocol and domain name', function() {
+    it('should automatically link strings of the form "git:domain.com", interpreting this as a protocol and domain name', function() {
       expect(
         renderText('Something like git:domain.com should be linked as a URL')
       ).toBe('<span><span>Something like </span><a href="git:domain.com">git:domain.com</a><span> should be linked as a URL</span></span>');
-		});
+    });
 
-		it('should NOT automatically link a string in the form of "git:1.0"', function() {
+    it('should NOT automatically link a string in the form of "git:1.0"', function() {
       expect(
         renderText('git:1.0')
       ).toBe('<span><span>git:1.0</span></span>');
-		});
+    });
 
-		it("should NOT automatically link supposed protocol-relative URLs in the form of abc//yahoo.com, which is most likely not supposed to be interpreted as a URL", function() {
+    it("should NOT automatically link supposed protocol-relative URLs in the form of abc//yahoo.com, which is most likely not supposed to be interpreted as a URL", function() {
       expect(
         renderText('Joe went to abc//opengov.com')
       ).toBe('<span><span>Joe went to abc//opengov.com</span></span>');
-		});
+    });
 
     it('should automatically link protocol-relative URLs', function() {
       expect(

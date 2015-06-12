@@ -22,30 +22,30 @@ const urlSuffixRegex = /[\-A-Za-z0-9+&@#\/%=~_()|'$*\[\]?!:,.;]*[\-A-Za-z0-9+&@#
 const charBeforeProtocolRelMatchRegex = /^(.)?\/\//;
 
 const urlRegex = [
-	'(?:', // parens to cover match for protocol (optional), and domain
-		'(',  // *** Capturing group $1, for a protocol-prefixed url (ex: http://google.com)
-			protocolRegex.source,
-			domainNameRegex.source,
-		')',
+  '(?:', // parens to cover match for protocol (optional), and domain
+    '(',  // *** Capturing group $1, for a protocol-prefixed url (ex: http://google.com)
+      protocolRegex.source,
+      domainNameRegex.source,
+    ')',
 
-		'|',
+    '|',
 
-		'(?:',  // non-capturing paren for a 'www.' prefixed url (ex: www.google.com)
-			'(.?//)?',  // *** Capturing group $2 for an optional protocol-relative URL. Must be at the beginning of the string or start with a non-word character
-			wwwRegex.source,
-			domainNameRegex.source,
-		')',
+    '(?:',  // non-capturing paren for a 'www.' prefixed url (ex: www.google.com)
+      '(.?//)?',  // *** Capturing group $2 for an optional protocol-relative URL. Must be at the beginning of the string or start with a non-word character
+      wwwRegex.source,
+      domainNameRegex.source,
+    ')',
 
-		'|',
+    '|',
 
-		'(?:',  // non-capturing paren for known a TLD url (ex: google.com)
-			'(.?//)?',  // *** Capturing group $3 for an optional protocol-relative URL. Must be at the beginning of the string or start with a non-word character
-			domainNameRegex.source,
-			tldRegex.source,
-		')',
-	')',
+    '(?:',  // non-capturing paren for known a TLD url (ex: google.com)
+      '(.?//)?',  // *** Capturing group $3 for an optional protocol-relative URL. Must be at the beginning of the string or start with a non-word character
+      domainNameRegex.source,
+      tldRegex.source,
+    ')',
+  ')',
 
-	'(?:' + urlSuffixRegex.source + ')?',  // match for path, query string, and/or hash anchor - optional
+  '(?:' + urlSuffixRegex.source + ')?',  // match for path, query string, and/or hash anchor - optional
 ].join('');
 
 export default function(text='') {
@@ -54,29 +54,29 @@ export default function(text='') {
 
   var match;
   while ((match = regex.exec(text)) !== null) {
-		let [matchedText, protocolUrlMatch, wwwProtocolRelativeMatch, tldProtocolRelativeMatch] = match;
-		const protocolRelativeMatch = wwwProtocolRelativeMatch || tldProtocolRelativeMatch;
+    let [matchedText, protocolUrlMatch, wwwProtocolRelativeMatch, tldProtocolRelativeMatch] = match;
+    const protocolRelativeMatch = wwwProtocolRelativeMatch || tldProtocolRelativeMatch;
 
-		// If it's a protocol-relative '//' match, remove the character
-		// before the '//' (which the matcherRegex needed to match due to
-		// the lack of a negative look-behind in JavaScript regular
-		// expressions)
-		if (protocolRelativeMatch) {
-			let charBeforeMatch = protocolRelativeMatch.match(charBeforeProtocolRelMatchRegex)[1] || '';
+    // If it's a protocol-relative '//' match, remove the character
+    // before the '//' (which the matcherRegex needed to match due to
+    // the lack of a negative look-behind in JavaScript regular
+    // expressions)
+    if (protocolRelativeMatch) {
+      let charBeforeMatch = protocolRelativeMatch.match(charBeforeProtocolRelMatchRegex)[1] || '';
 
-			// fix up the `matchStr` if there was a preceding char before a protocol-relative match, which was needed to determine the match itself (since there are no look-behinds in JS regexes)
-			if (charBeforeMatch) {
-				matchedText = matchedText.slice(1); // remove the prefixed char from the match
-				match.index++;
-			}
-		}
+      // fix up the `matchStr` if there was a preceding char before a protocol-relative match, which was needed to determine the match itself (since there are no look-behinds in JS regexes)
+      if (charBeforeMatch) {
+        matchedText = matchedText.slice(1); // remove the prefixed char from the match
+        match.index++;
+      }
+    }
 
-		if (isValidMatch(matchedText, protocolUrlMatch, protocolRelativeMatch)) {
-	    matches.push({
-	      text: matchedText,
-	      position: {start: match.index, end: regex.lastIndex}
-	    });
-		}
+    if (isValidMatch(matchedText, protocolUrlMatch, protocolRelativeMatch)) {
+      matches.push({
+        text: matchedText,
+        position: {start: match.index, end: regex.lastIndex}
+      });
+    }
   }
 
   return matches;
