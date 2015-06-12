@@ -1,3 +1,5 @@
+import {isValidMatch} from './match_validator';
+
 // match protocol, allow in format "http://" or "mailto:". However, do not match
 // the first part of something like 'link:http://www.google.com' (i.e. don't match "link:").
 // Also, make sure we don't interpret 'google.com:8000' as if 'google.com' was a
@@ -52,11 +54,15 @@ export default function(text='') {
 
   var match;
   while ((match = regex.exec(text)) !== null) {
-    matches.push({
-      text: match[0],
-      groups: match.slice(1),
-      position: {start: match.index, end: regex.lastIndex}
-    });
+		const [matchedText, protocolUrlMatch, wwwProtocolRelativeMatch, tldProtocolRelativeMatch] = match;
+		const protocolRelativeMatch = wwwProtocolRelativeMatch || tldProtocolRelativeMatch;
+
+		if (isValidMatch(matchedText, protocolUrlMatch, protocolRelativeMatch)) {
+	    matches.push({
+	      text: matchedText,
+	      position: {start: match.index, end: regex.lastIndex}
+	    });
+		}
   }
 
   return matches;
