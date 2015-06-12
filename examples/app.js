@@ -14,7 +14,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <AutoLinkText text={this.state.text} maxLength={10} /><br />
+        <AutoLinkText text={this.state.text} /><br />
         <textarea value={this.state.text} onChange={this._onTextChange.bind(this)} />
       </div>
     );

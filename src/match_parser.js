@@ -54,8 +54,22 @@ export default function(text='') {
 
   var match;
   while ((match = regex.exec(text)) !== null) {
-		const [matchedText, protocolUrlMatch, wwwProtocolRelativeMatch, tldProtocolRelativeMatch] = match;
+		let [matchedText, protocolUrlMatch, wwwProtocolRelativeMatch, tldProtocolRelativeMatch] = match;
 		const protocolRelativeMatch = wwwProtocolRelativeMatch || tldProtocolRelativeMatch;
+
+		// If it's a protocol-relative '//' match, remove the character
+		// before the '//' (which the matcherRegex needed to match due to
+		// the lack of a negative look-behind in JavaScript regular
+		// expressions)
+		if (protocolRelativeMatch) {
+			let charBeforeMatch = protocolRelativeMatch.match(charBeforeProtocolRelMatchRegex)[1] || '';
+
+			// fix up the `matchStr` if there was a preceding char before a protocol-relative match, which was needed to determine the match itself (since there are no look-behinds in JS regexes)
+			if (charBeforeMatch) {
+				matchedText = matchedText.slice(1); // remove the prefixed char from the match
+				match.index++;
+			}
+		}
 
 		if (isValidMatch(matchedText, protocolUrlMatch, protocolRelativeMatch)) {
 	    matches.push({

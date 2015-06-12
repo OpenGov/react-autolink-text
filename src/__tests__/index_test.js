@@ -82,6 +82,12 @@ describe('<AutoLinkText />', function() {
         renderText('Joe went to abc//opengov.com')
       ).toBe('<span><span>Joe went to abc//opengov.com</span></span>');
 		});
+
+    it('should automatically link protocol-relative URLs', function() {
+      expect(
+        renderText('Joe visited //opengov.com this morning')
+      ).toBe('<span><span>Joe visited </span><a href="//opengov.com">opengov.com</a><span> this morning</span></span>');
+    });
   });
 
   describe('truncating text with links', function() {
