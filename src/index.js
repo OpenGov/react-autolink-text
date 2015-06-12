@@ -18,13 +18,13 @@ function prepareElements(text) {
   let elements = [];
   let lastIndex = 0;
 
-  for (const match of this) {
+  this.forEach((match) => {
     if (match.position.start !== 0) {
       elements.push(<span>{text.slice(lastIndex, match.position.start)}</span>);
     }
     elements.push(<a href={match.text}>{match.text.replace(/(http:)?\/\//, '').replace('www.', '')}</a>);
     lastIndex = match.position.end;
-  }
+  });
 
   if (lastIndex < text.length) {
     elements.push(<span>{text.slice(lastIndex)}</span>);
@@ -39,7 +39,7 @@ function truncate(maxLength) {
   let elements = [];
   let length = 0;
 
-  for (const el of this) {
+  this.some((el) => {
     length += el.props.children.length;
 
     if (length > maxLength) {
@@ -47,11 +47,11 @@ function truncate(maxLength) {
       elements.push(
         React.cloneElement(el, {}, truncatedText)
       );
-      break;
+      return true; // stop iterating through the elements
     }
 
     elements.push(el);
-  }
+  });
 
   return elements;
 }
