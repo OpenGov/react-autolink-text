@@ -20,3 +20,7 @@ React.render(
   document.body
 );
 ```
+
+Thanks
+------
+Thank you to @gregjacobs for creating [Autolinker.js](https://github.com/gregjacobs/Autolinker.js) from which this component was based.
