@@ -22,5 +22,8 @@
     "react": "^0.13.3",
     "webpack": "^1.9.10",
     "webpack-dev-server": "^1.9.0"
+  },
+  "dependencies": {
+    "react-pure-render": "^1.0.2"
   }
 }
