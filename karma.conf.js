@@ -1,6 +1,7 @@
 module.exports = function(config) {
   config.set({
-    browsers: ['Chrome'],
+    browsers: [process.env.CONTINUOUS_INTEGRATION ? 'Firefox' : 'Chrome'],
+    singleRun: process.env.CONTINUOUS_INTEGRATION === 'true',
 
     frameworks: ['jasmine'],
 
