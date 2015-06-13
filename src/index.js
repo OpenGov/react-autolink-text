@@ -9,7 +9,7 @@ export default class AutoLinkText extends React.Component {
   render() {
     const text = this.props.text || '';
     return (
-      <span>{matchParser(text)::prepareElements(text)::truncate(this.props.maxLength)}</span>
+      <span>{matchParser(text)::prepareElements(text)::truncate(this.props.maxLength)::keyElements()}</span>
     );
   }
 }
@@ -54,6 +54,17 @@ function truncate(maxLength) {
   });
 
   return elements;
+}
+
+/*
+ * Generate unique keys for each of the elements.
+ * The key will be based on the link's URL or the text span's contents.
+ */
+function keyElements() {
+  return this.map((el) => {
+    const key = el.props.href || el.props.children;
+    return React.cloneElement(el, {key});
+  });
 }
 
 AutoLinkText.propTypes = {
