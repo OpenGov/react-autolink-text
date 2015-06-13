@@ -58,12 +58,11 @@ function truncate(maxLength) {
 
 /*
  * Generate unique keys for each of the elements.
- * The key will be based on the link's URL or the text span's contents.
+ * The key will be based on the index of the element.
  */
 function keyElements() {
-  return this.map((el) => {
-    const key = el.props.href || el.props.children;
-    return React.cloneElement(el, {key});
+  return this.map((el, index) => {
+    return React.cloneElement(el, {key: index});
   });
 }
 
