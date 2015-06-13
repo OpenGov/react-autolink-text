@@ -67,5 +67,9 @@ function keyElements() {
 }
 
 AutoLinkText.propTypes = {
-  text: React.PropTypes.string
+  text: React.PropTypes.string,
+  maxLength: React.PropTypes.oneOfType([
+    React.PropTypes.number,
+    React.PropTypes.string
+  ])
 };

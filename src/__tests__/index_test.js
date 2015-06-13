@@ -102,5 +102,11 @@ describe('<AutoLinkText />', function() {
         renderText('Joe bookmarked http://opengov.com yesterday in his browser', {maxLength: 36})
       ).toBe('<span><span>Joe bookmarked </span><a href="http://opengov.com">opengov.com</a><span> yesterday</span></span>');
     });
+
+    it('should allow "maxLength" prop to be a string', function() {
+      expect(
+        renderText('This message will be cut off', {maxLength: '13'})
+      ).toBe('<span><span>This message </span></span>');
+    });
   });
 });
