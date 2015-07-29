@@ -7,8 +7,8 @@ export default class AutoLinkText extends React.Component {
   shouldComponentUpdate = shouldPureComponentUpdate
 
   render() {
-    const text = this.props.text || '';
-    const target = this.props.target || '_self';
+    const text = this.props.text;
+    const target = this.props.target;
     return (
       <span>{matchParser(text)::prepareElements(text, target)::truncate(this.props.maxLength)::keyElements()}</span>
     );
@@ -23,7 +23,7 @@ function prepareElements(text, target) {
     if (match.position.start !== 0) {
       elements.push(<span>{text.slice(lastIndex, match.position.start)}</span>);
     }
-    elements.push(<a href={match.getAnchorHref()} target={target}>{match.getAnchorText()}</a>);
+    elements.push(<a target={target} href={match.getAnchorHref()} >{match.getAnchorText()}</a>);
     lastIndex = match.position.end;
   });
 
@@ -76,3 +76,7 @@ AutoLinkText.propTypes = {
   ])
 };
 
+AutoLinkText.defaultProps = {
+  text: '',
+  target: '_self'
+}
