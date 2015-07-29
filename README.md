@@ -14,9 +14,9 @@ Usage
 ```js
 import React from 'react';
 import AutoLinkText from 'react-autolink-text';
-  
+
 React.render(
-  <AutoLinkText text="Check out this cool component: http://github.com/OpenGov/react-autolink-text" />,
+  <AutoLinkText text="Check out this cool component: http://github.com/OpenGov/react-autolink-text" target="_blank" />,
   document.body
 );
 ```

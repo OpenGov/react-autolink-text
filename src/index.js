@@ -7,14 +7,15 @@ export default class AutoLinkText extends React.Component {
   shouldComponentUpdate = shouldPureComponentUpdate
 
   render() {
-    const text = this.props.text || '';
+    const text = this.props.text;
+    const target = this.props.target;
     return (
-      <span>{matchParser(text)::prepareElements(text)::truncate(this.props.maxLength)::keyElements()}</span>
+      <span>{matchParser(text)::prepareElements(text, target)::truncate(this.props.maxLength)::keyElements()}</span>
     );
   }
 }
 
-function prepareElements(text) {
+function prepareElements(text, target) {
   let elements = [];
   let lastIndex = 0;
 
@@ -22,7 +23,7 @@ function prepareElements(text) {
     if (match.position.start !== 0) {
       elements.push(<span>{text.slice(lastIndex, match.position.start)}</span>);
     }
-    elements.push(<a href={match.getAnchorHref()}>{match.getAnchorText()}</a>);
+    elements.push(<a target={target} href={match.getAnchorHref()} >{match.getAnchorText()}</a>);
     lastIndex = match.position.end;
   });
 
@@ -68,8 +69,14 @@ function keyElements() {
 
 AutoLinkText.propTypes = {
   text: React.PropTypes.string,
+  target: React.PropTypes.string,
   maxLength: React.PropTypes.oneOfType([
     React.PropTypes.number,
     React.PropTypes.string
   ])
 };
+
+AutoLinkText.defaultProps = {
+  text: '',
+  target: '_self'
+}

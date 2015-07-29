@@ -26,31 +26,37 @@ describe('<AutoLinkText />', function() {
     it('should automatically link URLs in the form of http://opengov.com', function() {
       expect(
         renderText('Joe went to http://opengov.com')
-      ).toEqual('<span><span>Joe went to </span><a href="http://opengov.com">opengov.com</a></span>');
+      ).toEqual('<span><span>Joe went to </span><a target="_self" href="http://opengov.com">opengov.com</a></span>');
     });
 
     it('should automatically link URLs in the form of https://opengov.com', function() {
       expect(
         renderText('Joe went to https://opengov.com')
-      ).toEqual('<span><span>Joe went to </span><a href="https://opengov.com">opengov.com</a></span>');
+      ).toEqual('<span><span>Joe went to </span><a target="_self" href="https://opengov.com">opengov.com</a></span>');
+    });
+
+    it('should have a custom target if specified', function() {
+      expect(
+        renderText('Joe went to https://opengov.com', {target: '_blank'})
+      ).toEqual('<span><span>Joe went to </span><a target="_blank" href="https://opengov.com">opengov.com</a></span>');
     });
 
     it('should automatically link localhost URLs when there is a protocol', function() {
       expect(
         renderText('Joe visited http://localhost today')
-      ).toEqual('<span><span>Joe visited </span><a href="http://localhost">localhost</a><span> today</span></span>');
+      ).toEqual('<span><span>Joe visited </span><a target="_self" href="http://localhost">localhost</a><span> today</span></span>');
     });
 
     it('should automatically link localhost URLs when there is a protocol and port', function() {
       expect(
         renderText('Joe visited http://localhost:8000 today')
-      ).toEqual('<span><span>Joe visited </span><a href="http://localhost:8000">localhost:8000</a><span> today</span></span>');
+      ).toEqual('<span><span>Joe visited </span><a target="_self" href="http://localhost:8000">localhost:8000</a><span> today</span></span>');
     });
 
     it('should automatically link URLs in the form of http://www.opengov.com (i.e. protocol and www prefix)', function() {
       expect(
         renderText('Joe checked out http://www.opengov.com last week')
-      ).toBe('<span><span>Joe checked out </span><a href="http://www.opengov.com">opengov.com</a><span> last week</span></span>');
+      ).toBe('<span><span>Joe checked out </span><a target="_self" href="http://www.opengov.com">opengov.com</a><span> last week</span></span>');
     });
 
     it('should NOT autolink possible URLs with the "javascript:" URI scheme', function() {
@@ -74,7 +80,7 @@ describe('<AutoLinkText />', function() {
     it('should automatically link strings of the form "git:domain.com", interpreting this as a protocol and domain name', function() {
       expect(
         renderText('Something like git:domain.com should be linked as a URL')
-      ).toBe('<span><span>Something like </span><a href="git:domain.com">git:domain.com</a><span> should be linked as a URL</span></span>');
+      ).toBe('<span><span>Something like </span><a target="_self" href="git:domain.com">git:domain.com</a><span> should be linked as a URL</span></span>');
     });
 
     it('should NOT automatically link a string in the form of "git:1.0"', function() {
@@ -92,7 +98,7 @@ describe('<AutoLinkText />', function() {
     it('should automatically link protocol-relative URLs', function() {
       expect(
         renderText('Joe visited //opengov.com this morning')
-      ).toBe('<span><span>Joe visited </span><a href="//opengov.com">opengov.com</a><span> this morning</span></span>');
+      ).toBe('<span><span>Joe visited </span><a target="_self" href="//opengov.com">opengov.com</a><span> this morning</span></span>');
     });
   });
 
@@ -100,7 +106,7 @@ describe('<AutoLinkText />', function() {
     it('should truncate a text span', function() {
       expect(
         renderText('Joe bookmarked http://opengov.com yesterday in his browser', {maxLength: 36})
-      ).toBe('<span><span>Joe bookmarked </span><a href="http://opengov.com">opengov.com</a><span> yesterday</span></span>');
+      ).toBe('<span><span>Joe bookmarked </span><a target="_self" href="http://opengov.com">opengov.com</a><span> yesterday</span></span>');
     });
 
     it('should allow "maxLength" prop to be a string', function() {
