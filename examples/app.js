@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import AutoLinkText from 'react-autolink-text';
 
 class App extends React.Component {
@@ -21,4 +22,4 @@ class App extends React.Component {
   }
 }
 
-React.render(<App />, document.getElementById('app'));
+ReactDOM.render(<App />, document.getElementById('app'));

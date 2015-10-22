@@ -1,7 +1,8 @@
-import React from 'react/addons';
+import React from 'react';
+import ReactTestUtils from 'react-addons-test-utils';
 import AutoLinkText from '../index';
 
-const {renderIntoDocument, createRenderer} = React.addons.TestUtils;
+const {renderIntoDocument, createRenderer} = ReactTestUtils;
 
 describe('<AutoLinkText />', function() {
   let renderer;

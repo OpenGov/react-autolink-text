@@ -12,10 +12,10 @@ Installation
 Usage
 -----
 ```js
-import React from 'react';
+import ReactDOM from 'react-dom';
 import AutoLinkText from 'react-autolink-text';
-  
-React.render(
+
+ReactDOM.render(
   <AutoLinkText text="Check out this cool component: http://github.com/OpenGov/react-autolink-text" />,
   document.body
 );
