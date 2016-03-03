@@ -11,7 +11,7 @@
   "license": "MIT",
   "scripts": {
     "examples": "webpack-dev-server --config examples/webpack.config.js --content-base examples --inline",
-    "prepublish": "babel src --out-dir lib",
+    "build": "babel src --out-dir lib",
     "test": "karma start"
   },
   "devDependencies": {
