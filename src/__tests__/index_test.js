@@ -1,4 +1,5 @@
 import React from 'react';
+import { renderToStaticMarkup } from 'react-dom/server'
 import ReactTestUtils from 'react-addons-test-utils';
 import AutoLinkText from '../index';
 
@@ -12,7 +13,7 @@ describe('<AutoLinkText />', function() {
   });
 
   function renderText(text, props={}) {
-    return React.renderToStaticMarkup(
+    return renderToStaticMarkup(
       <AutoLinkText text={text} {...props} />
     );
   }
@@ -94,6 +95,12 @@ describe('<AutoLinkText />', function() {
       expect(
         renderText('Joe visited //opengov.com this morning')
       ).toBe('<span><span>Joe visited </span><a href="//opengov.com">opengov.com</a><span> this morning</span></span>');
+    });
+
+    it('should support extra html attributes', function() {
+      expect(
+        renderText('Joe went to http://opengov.com', { className: "my-link", target: "_blank" })
+      ).toEqual('<span><span>Joe went to </span><a href="http://opengov.com" class="my-link" target="_blank">opengov.com</a></span>');
     });
   });
 
