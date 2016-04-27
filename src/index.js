@@ -6,15 +6,19 @@ import matchParser from './match_parser';
 export default class AutoLinkText extends React.Component {
   shouldComponentUpdate = shouldPureComponentUpdate
 
+  static defaultProps = {
+    text: ''
+  }
+
   render() {
-    const text = this.props.text || '';
+    const { text, maxLength, ...attrs } = this.props
     return (
-      <span>{matchParser(text)::prepareElements(text)::truncate(this.props.maxLength)::keyElements()}</span>
+      <span>{matchParser(text)::prepareElements(text, attrs)::truncate(maxLength)::keyElements()}</span>
     );
   }
 }
 
-function prepareElements(text) {
+function prepareElements(text, attrs) {
   let elements = [];
   let lastIndex = 0;
 
@@ -22,7 +26,7 @@ function prepareElements(text) {
     if (match.position.start !== 0) {
       elements.push(<span>{text.slice(lastIndex, match.position.start)}</span>);
     }
-    elements.push(<a href={match.getAnchorHref()}>{match.getAnchorText()}</a>);
+    elements.push(<a href={match.getAnchorHref()} {...attrs}>{match.getAnchorText()}</a>);
     lastIndex = match.position.end;
   });
 
@@ -67,7 +71,7 @@ function keyElements() {
 }
 
 AutoLinkText.propTypes = {
-  text: React.PropTypes.string,
+  text: React.PropTypes.string.isRequired,
   maxLength: React.PropTypes.oneOfType([
     React.PropTypes.number,
     React.PropTypes.string
