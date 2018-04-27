@@ -27,16 +27,16 @@
     "karma-sourcemap-loader": "^0.3.5",
     "karma-webpack": "^1.7.0",
     "node-libs-browser": "^0.5.2",
-    "react": "^0.14.0",
-    "react-addons-test-utils": "^0.14.0",
-    "react-dom": "^0.14.0",
+    "react": "16.3.2",
+    "react-dom": "16.3.2",
     "webpack": "^1.9.10",
-    "webpack-dev-server": "^1.9.0"
+    "webpack-dev-server": "^1.9.0",
+    "prop-types": "15.6.1"
   },
   "dependencies": {
     "react-pure-render": "^1.0.2"
   },
   "peerDependencies": {
-    "react": "0.14.x"
+    "react": "^16.3.2"
   }
 }
