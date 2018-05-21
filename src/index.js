@@ -1,5 +1,6 @@
 import React from 'react';
 import shouldPureComponentUpdate from 'react-pure-render/function';
+import PropTypes from 'prop-types';
 
 import matchParser from './match_parser';
 
@@ -67,9 +68,9 @@ function keyElements() {
 }
 
 AutoLinkText.propTypes = {
-  text: React.PropTypes.string,
-  maxLength: React.PropTypes.oneOfType([
-    React.PropTypes.number,
-    React.PropTypes.string
+  text: PropTypes.string,
+  maxLength: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string
   ])
 };
