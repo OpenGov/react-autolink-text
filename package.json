@@ -1,5 +1,5 @@
 {
-  "name": "react-autolink-text",
+  "name": "@opengov/react-autolink-text",
   "version": "3.0.0",
   "description": "A React component for converting URLs in a given string of text into clicking link tags.",
   "main": "lib/index.js",
