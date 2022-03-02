@@ -23,7 +23,7 @@
     "es5-shim": "^4.1.6",
     "jasmine-core": "^2.3.4",
     "json-loader": "^0.5.7",
-    "karma": "^0.13.14",
+    "karma": "^6.3.16",
     "karma-chrome-launcher": "^0.2.1",
     "karma-firefox-launcher": "^0.1.6",
     "karma-jasmine": "^0.3.5",
